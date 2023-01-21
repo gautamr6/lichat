@@ -1,6 +1,7 @@
 import openai
+import os
 
-openai.api_key = "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"
+openai.api_key = os.environ['OPENAI_KEY']
 
 def get_situation():
 

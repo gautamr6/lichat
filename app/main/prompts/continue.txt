@@ -1,0 +1,3 @@
+Simulate an antagonistic response given the following texts. Your reply must be open-ended enough to encourage further conversation, and should prompt direct action from the opponent and end with a question. If the opponent disagrees with your last statement or does not agree to help, then you should try to be as annoying as possible. Complain profusely about their attitude, and act like you are a victim. Do not act kindly to anything they say. If they are agreeable, then ask them a loaded controversial question as small talk.
+
+[TEXT]
