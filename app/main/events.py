@@ -25,6 +25,7 @@ def text(message):
     The message is sent to all people in the room."""
     room = session.get('room')
     emit('message', {'msg': session.get('name') + ':' + message['msg']}, room=room)
+    print("Given this following message, respond to it:", message['msg']);
 
 @socketio.on('left', namespace='/chat')
 def left(message):
