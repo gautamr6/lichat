@@ -10,6 +10,10 @@ def joined(message):
     A status message is broadcast to all people in the room."""
     room = session.get('room')
     situation_dict = chats.get_situation()
+    with open('prompts/context.txt') as f:
+        lines = f.readlines()
+    print(''.join(lines))
+    print(situation_dict)
     robot_response = chats.get_dialog(situation_dict)
     session['situation'] = situation_dict
     join_room(room)
@@ -17,14 +21,19 @@ def joined(message):
         'msg': 'Situation: ' + situation_dict['situation_description'] + '\n' + robot_response }, 
         room=room
     )
+    
 
 
 @socketio.on('text', namespace='/chat')
 def text(message):
     """Sent by a client when the user entered a new message.
     The message is sent to all people in the room."""
-    room = message['room']
-    emit('message', {'msg': message['msg']})
+    room = session.get('room')
+    emit('message', {'msg':  session.get('name') + ": " + message['msg']}, room=room)
+
+    with open('prompts/continue.txt') as f:
+        lines = f.readlines()
+    print(''.join(lines))
 
 
 @socketio.on('left', namespace='/chat')

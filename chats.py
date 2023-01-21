@@ -6,7 +6,7 @@ openai.api_key = os.environ['OPENAI_KEY']
 def get_situation():
 
     return {
-        'situation_description': 'An old woman has just lost a cat and has asked for your help to find it. You are very busy and need to be on your way. You must deny her',
+        'situation_description': 'You are an old woman who has just lost a cat and has asked for help to find it, but the person you are talking to has refused to help you.',
         'robot_name': 'Old Woman'
     }
 
