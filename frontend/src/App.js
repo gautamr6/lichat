@@ -1,28 +1,31 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import openSocket from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
 
 function App() {
   const [users, setUsers] = useState(0);
   const [chatHistory, setChatHistory] = useState([{me: false, text: "awfawaf"}, {me: true, text: "awefawe"}]);
   const [newMessage, setNewMessage] = useState('');
+  const [socket, setSocket] = useState(null);
 
-  const temp = openSocket('http://localhost:8000/chat');
-  const socket = temp.connect('http://localhost:8000/chat');
   useEffect(() => {
-    socket.on('text', data => {
+    console.log("useeffect");
+    const tempSocket = io.connect('http://localhost:8000/chat');
+    setSocket(tempSocket);
+    tempSocket.on('message', data => {
         console.log("hi")
-        setChatHistory([...chatHistory, data.msg]);
+        setChatHistory([...chatHistory, {me: false, text: data.msg}]);
     });
+
     return () => {
-        socket.disconnect();
+      tempSocket.disconnect();
     }
   }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("emit");
-    socket.emit('text', newMessage);
+    socket.emit('text', {msg: newMessage, room: "1"});
     setNewMessage('');
   }
 

@@ -1,6 +1,6 @@
 import openai
 
-openai.api_key = "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"
+openai.api_key = "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"
 
 def get_situation():
 
