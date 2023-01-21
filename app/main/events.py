@@ -26,7 +26,6 @@ def text(message):
     room = session.get('room')
     emit('message', {'msg': session.get('name') + ':' + message['msg']}, room=room)
 
-
 @socketio.on('left', namespace='/chat')
 def left(message):
     """Sent by clients when they leave a room.
