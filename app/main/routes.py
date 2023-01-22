@@ -1,7 +1,7 @@
-from flask import session, redirect, url_for, render_template, request
+from flask import session, redirect, url_for, render_template, request, send_from_directory
 from . import main
 from .forms import LoginForm
-
+import random
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
@@ -9,11 +9,10 @@ def index():
     form = LoginForm()
     if form.validate_on_submit():
         session['name'] = form.name.data
-        session['room'] = form.room.data
+        session['room'] = random.random() * 10000
         return redirect(url_for('.chat'))
     elif request.method == 'GET':
         form.name.data = session.get('name', '')
-        form.room.data = session.get('room', '')
     return render_template('index.html', form=form)
 
 
@@ -26,3 +25,7 @@ def chat():
     if name == '' or room == '':
         return redirect(url_for('.index'))
     return render_template('chat.html', name=name, room=room)
+
+@main.route('/static/<path:path>')
+def send_static(path):
+    return send_from_directory('static', path)
