@@ -10,8 +10,7 @@ def get_situation():
         'robot_name': 'Old Woman'
     }
 
-def get_dialog(situation_dict):
-    prompt = f"{situation_dict['situation_description']}\n{situation_dict['robot_name']}:"
+def get_dialog(prompt):
     completions = openai.Completion.create(
         engine="text-davinci-003",
         prompt=prompt,
